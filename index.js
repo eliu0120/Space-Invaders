@@ -22,11 +22,11 @@ class Obj {
     }
 
     draw() {
-        throw error("Don't use this!!!");
+        throw new Error("Don't use this!!!");
     }
 
     update() {
-        throw error("Don't use this!!");
+        throw new Error("Don't use this!!");
     }
 
     get velocity() {
@@ -101,7 +101,7 @@ class ImageObj extends Obj {
     }
 
     update() {
-        throw error("Don't use this!!");
+        throw new Error("Don't use this!!");
     }
 
     get image() {
@@ -122,8 +122,21 @@ class Player extends ImageObj {
     }
 }
 
+// Variables for animate function
 const player = new Player();
+const keys = {
+    a: {
+        pressed: false
+    },
+    d: {
+        pressed: false
+    },
+    space: {
+        pressed: false
+    }
+};
 
+// Animate function (game loop)
 function animate() {
     // Draw background
     window.requestAnimationFrame(animate);
@@ -132,5 +145,42 @@ function animate() {
 
     // Draw Player
     player.update();
+
+    // Player movement
+    if (keys.a.pressed && player.position.x >= 0) {
+        player.velocity.x = -1.5;
+    } else if (keys.d.pressed && player.position.x + player.width <= canvas.width) {
+        player.velocity.x = 1.5;
+    } else {
+        player.velocity.x = 0;
+    }
 }
 animate();
+
+// Key press down
+addEventListener('keydown', ({key}) => {
+    switch (key) {
+        case 'ArrowLeft':
+        case 'a':
+            keys.a.pressed = true;
+            break;
+        case 'ArrowRight':
+        case 'd':
+            keys.d.pressed = true;
+            break;
+    };
+});
+
+// Key Press up
+addEventListener('keyup', ({key}) => {
+    switch (key) {
+        case 'ArrowLeft':
+        case 'a':
+            keys.a.pressed = false;
+            break;
+        case 'ArrowRight':
+        case 'd':
+            keys.d.pressed = false;
+            break;
+    };
+});
