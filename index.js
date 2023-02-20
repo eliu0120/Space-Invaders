@@ -112,12 +112,46 @@ class Player extends ImageObj {
 
 // Invader class
 class Invader extends ImageObj {
-    constructor() {
-        super({x: 0, y: 0}, 'Alien_frame1.png', 0.5, {x: 0, y: 0});
+    constructor(position) {
+        super({x: 0, y: 0}, 'Alien_frame1.png', 0.5, position);
     }
 
     update() {
         super.update();
+    }
+}
+
+// Invader Grid Class
+class Grid extends Obj {
+    constructor() {
+        super({x: 1, y: 0});
+        this.position = {x: 0, y: 0};
+
+        this.invaders = [];
+
+        let rows = Math.floor(Math.random() * 3) + 2;
+        let columns = Math.floor(Math.random() * 5) + 10;
+        for (let i = 0; i < columns; i++) {
+            for (let j = 0; j < rows; j++) {
+                let position = {x: i * 48, y: j * 32};
+                this.invaders.push(new Invader(position))
+            }
+        }
+
+        this.width = columns * 48;
+        this.height = rows * 32;
+    }
+
+    update() {
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+
+        this.velocity.y = 0;
+
+        if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
+            this.velocity.x = -this.velocity.x;
+            this.velocity.y = 30;
+        }
     }
 }
 
@@ -149,6 +183,7 @@ class Projectile extends Obj {
 // Variables for animate function
 const player = new Player();
 const projectiles = [];
+let grid = [new Grid()];
 const keys = {
     a: {
         pressed: false
@@ -161,9 +196,6 @@ const keys = {
     }
 };
 
-// Invader for testing purposes
-const invader = new Invader();
-
 // Animate function (game loop)
 function animate() {
     // render background
@@ -173,9 +205,6 @@ function animate() {
 
     // Render player
     player.update();
-
-    // Render invader for testing
-    invader.update();
 
     // Projectile movement and rendering
     if (projectiles.length > 0) {
@@ -187,6 +216,14 @@ function animate() {
             projectiles[0].update()
         }
     };
+
+    if (grid.length > 0) {
+        grid[0].update();
+        grid[0].invaders.forEach((invader, i) => {
+            invader.velocity = grid[0].velocity;
+            invader.update();
+        })
+    }
 
     // Player movement
     if (keys.a.pressed && player.position.x >= 0) {
