@@ -260,16 +260,54 @@ function animate() {
         grid[0].invaders.forEach((invader, i) => {
             invader.velocity = grid[0].velocity;
             invader.update();
-        })
+
+            // If invader is shot
+            if (projectiles.length > 0) {
+                let projectile = projectiles[0];
+                if (projectile.position.y <= invader.position.y + invader.height && 
+                    projectile.position.y + projectile.height >= invader.position.y &&
+                    projectile.position.x >= invader.position.x && 
+                    projectile.position.x + projectile.width <= invader.position.x + invader.width) {
+                    setTimeout(() => {
+                        const invaderFound = grid[0].invaders.find((invader2) => {
+                            return invader2 === invader;
+                        });
+
+                        const projectileFound = projectiles.find((projectile2) => {
+                            return projectile2 === projectile;
+                        })
+
+                        if (invaderFound && projectileFound) {
+                            grid[0].invaders.splice(i, 1);
+                            projectiles.splice(0, 1);
+
+                            if (grid[0].invaders.length > 0) {
+                                const firstInvader = grid[0].invaders[0];
+                                const lastInvader = grid[0].invaders[grid[0].invaders.length - 1];
+
+                                grid[0].width = lastInvader.position.x + lastInvader.width * 1.5 - firstInvader.position.x;
+                                grid[0].position.x = firstInvader.position.x;
+                            } else {
+                                grid.splice(0, 1);
+                            }
+                        }
+                    }, 0);
+                }
+            }
+        });
+    }
+
+    // Respawn grid
+    if (grid.length == 0) {
+        grid = [new Grid()];
     }
 
     frames++;
 
     // Invader shoot call
-    if (frames % 300 == 0) {
+    if (frames % 300 == 0 && grid.length > 0) {
         grid[0].invaders[Math.floor(Math.random() * grid[0].invaders.length)].shoot(invaderProjectiles);
     }
-    console.log(invaderProjectiles);
 
     // Player movement
     if (keys.a.pressed && player.position.x >= 0) {
