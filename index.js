@@ -119,6 +119,19 @@ class Invader extends ImageObj {
     update() {
         super.update();
     }
+
+    shoot(invaderProjectiles) {
+        invaderProjectiles.push(new InvaderProjectile({
+            position: {
+                x: this.position.x + this.width / 2,
+                y: this.position.y + this.height
+            },
+            velocity: {
+                x: 0,
+                y: 3
+            }
+        }));
+    }
 }
 
 // Invader Grid Class
@@ -180,9 +193,21 @@ class Projectile extends Obj {
     }
 }
 
+// InvaderProjectile class
+class InvaderProjectile extends Projectile {
+    constructor({velocity, position}) {
+        super({
+            velocity: velocity,
+            position: position,
+            color: 'white'
+        });
+    }
+}
+
 // Variables for animate function
 const player = new Player();
 const projectiles = [];
+const invaderProjectiles = [];
 let grid = [new Grid()];
 const keys = {
     a: {
@@ -195,6 +220,7 @@ const keys = {
         pressed: false
     }
 };
+let frames = 0;
 
 // Animate function (game loop)
 function animate() {
@@ -217,6 +243,18 @@ function animate() {
         }
     };
 
+    // Invader Projectile movement and rendering
+    invaderProjectiles.forEach((invaderProjectile, i) => {
+        if (invaderProjectile.position.y + invaderProjectile.height >= canvas.height) {
+            setTimeout(() => {
+                invaderProjectiles.splice(i, 1);
+            }, 0);
+        } else {
+            invaderProjectile.update();
+        }
+    });
+
+    // Grid movement and rendering
     if (grid.length > 0) {
         grid[0].update();
         grid[0].invaders.forEach((invader, i) => {
@@ -224,6 +262,14 @@ function animate() {
             invader.update();
         })
     }
+
+    frames++;
+
+    // Invader shoot call
+    if (frames % 300 == 0) {
+        grid[0].invaders[Math.floor(Math.random() * grid[0].invaders.length)].shoot(invaderProjectiles);
+    }
+    console.log(invaderProjectiles);
 
     // Player movement
     if (keys.a.pressed && player.position.x >= 0) {
@@ -251,13 +297,13 @@ addEventListener('keydown', ({key}) => {
             if (projectiles.length < 1) {
                 keys.space.pressed = true;
                 projectiles.push(new Projectile({
-                    position: {
-                        x: player.position.x + (player.width / 2) - 2,
-                        y: player.position.y - 10
-                    },
                     velocity: {
                         x: 0,
                         y: -3
+                    },
+                    position: {
+                        x: player.position.x + (player.width / 2) - 2,
+                        y: player.position.y - 10
                     }
                 }));
             }
