@@ -1,3 +1,4 @@
+const scoreEl = document.querySelector('#scoreEl');
 const canvas = document.querySelector('canvas');
 const canvasDrawer = canvas.getContext('2d');
 
@@ -221,6 +222,7 @@ const keys = {
     }
 };
 let frames = 0;
+let score = 0;
 
 // Animate function (game loop)
 function animate() {
@@ -287,10 +289,13 @@ function animate() {
 
                                 grid[0].width = lastInvader.position.x + lastInvader.width * 1.5 - firstInvader.position.x;
                                 grid[0].position.x = firstInvader.position.x;
+                                score += 100;
                             } else {
                                 grid.splice(0, 1);
+                                score += 1000;
                             }
                         }
+                        scoreEl.innerHTML = score;
                     }, 0);
                 }
             }
