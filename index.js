@@ -70,19 +70,16 @@ class Obj {
 
 // Base image object class
 class ImageObj extends Obj {
-    constructor(velocity, image) {
+    constructor(velocity, image, scale, position) {
         super(velocity);
 
         const img = new Image();
         img.src = image;
         img.onload = () => {
             this._image = img;
-            this.width = img.width * 0.3;
-            this.height = img.height * 0.3;
-            this.position = {
-                x: canvas.width / 2 - this.width / 2,
-                y: canvas.height - this.height - 40
-            };
+            this.width = img.width * scale;
+            this.height = img.height * scale;
+            this.position = position;
         }
     }
     
@@ -94,7 +91,11 @@ class ImageObj extends Obj {
     }
 
     update() {
-        throw new Error("Don't use this!!");
+        if (this.image) {
+            this.draw();
+            this.position.x += this.velocity.x;
+            this.position.y += this.velocity.y;
+        }
     }
 
     get image() {
@@ -105,14 +106,18 @@ class ImageObj extends Obj {
 // Player class
 class Player extends ImageObj {
     constructor() {
-        super({x: 0, y: 0}, 'Ship.png');
+        super({x: 0, y: 0}, 'Ship.png', 0.3, {x: canvas.width / 2 - 80, y: canvas.height - 80});
+    }
+}
+
+// Invader class
+class Invader extends ImageObj {
+    constructor() {
+        super({x: 0, y: 0}, 'Alien_frame1.png', 0.5, {x: 0, y: 0});
     }
 
     update() {
-        if (this.image) {
-            super.draw();
-            this.position.x += this.velocity.x;
-        }
+        super.update();
     }
 }
 
@@ -156,6 +161,9 @@ const keys = {
     }
 };
 
+// Invader for testing purposes
+const invader = new Invader();
+
 // Animate function (game loop)
 function animate() {
     // render background
@@ -165,6 +173,9 @@ function animate() {
 
     // Render player
     player.update();
+
+    // Render invader for testing
+    invader.update();
 
     // Projectile movement and rendering
     if (projectiles.length > 0) {
