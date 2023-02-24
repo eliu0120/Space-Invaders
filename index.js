@@ -120,6 +120,16 @@ class Invader extends ImageObj {
 
     update() {
         super.update();
+
+        if (this.position.y + this.height >= player.position.y) {
+            setTimeout(() => {
+                game.over = true;
+                player.opacity = 0;
+            }, 0);
+            setTimeout(() => {
+                game.active = false;
+            }, 2000);
+        }
     }
 
     shoot(invaderProjectiles) {
@@ -293,7 +303,11 @@ function animate() {
     if (grid.length > 0) {
         grid[0].update();
         grid[0].invaders.forEach((invader, i) => {
-            invader.velocity = grid[0].velocity;
+            if (!game.over) {
+                invader.velocity = grid[0].velocity;
+            } else {
+                invader.velocity = {x: 0, y: 0};
+            }
             invader.update();
 
             // If invader is shot
@@ -343,7 +357,7 @@ function animate() {
     frames++;
 
     // Invader shoot call
-    if (frames % 225 == 0 && grid.length > 0) {
+    if (frames % 225 == 0 && grid.length > 0 && !game.over) {
         grid[0].invaders[Math.floor(Math.random() * grid[0].invaders.length)].shoot(invaderProjectiles);
     }
 
