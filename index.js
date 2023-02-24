@@ -1,4 +1,5 @@
 const scoreEl = document.querySelector('#scoreEl');
+const livesEl = document.querySelector('#livesEl');
 const canvas = document.querySelector('canvas');
 const canvasDrawer = canvas.getContext('2d');
 
@@ -223,9 +224,18 @@ const keys = {
 };
 let frames = 0;
 let score = 0;
+let lives = 3;
+let game = {
+    over: false,
+    active: true
+};
 
 // Animate function (game loop)
 function animate() {
+    if (!game.active) {
+        return;
+    }
+
     // render background
     window.requestAnimationFrame(animate);
     canvasDrawer.fillStyle = 'black';
@@ -253,6 +263,29 @@ function animate() {
             }, 0);
         } else {
             invaderProjectile.update();
+        }
+
+        // If player is shot
+        if (invaderProjectile.position.y + invaderProjectile.height >= player.position.y &&
+            invaderProjectile.position.x + invaderProjectile.width >= player.position.x &&
+            invaderProjectile.position.x <= player.position.x + player.width &&
+            invaderProjectile.position.y <= player.position.y + player.height) {
+            
+            setTimeout(() => {
+                invaderProjectiles.splice(i, 1);
+                lives -= 1;
+                livesEl.innerHTML = lives;
+                if (lives == 0) {
+                    setTimeout(() => {
+                        player.opacity = 0;
+                        game.over = true;
+                    }, 0);
+    
+                    setTimeout(() => {
+                        game.active = false;
+                    }, 2000);
+                }
+            }, 0);
         }
     });
 
@@ -310,7 +343,7 @@ function animate() {
     frames++;
 
     // Invader shoot call
-    if (frames % 300 == 0 && grid.length > 0) {
+    if (frames % 225 == 0 && grid.length > 0) {
         grid[0].invaders[Math.floor(Math.random() * grid[0].invaders.length)].shoot(invaderProjectiles);
     }
 
@@ -327,6 +360,10 @@ animate();
 
 // Key press down
 addEventListener('keydown', ({key}) => {
+    if (game.over) {
+        return;
+    }
+
     switch (key) {
         case 'ArrowLeft':
         case 'a':
@@ -356,6 +393,10 @@ addEventListener('keydown', ({key}) => {
 
 // Key Press up
 addEventListener('keyup', ({key}) => {
+    if (game.over) {
+        return;
+    }
+
     switch (key) {
         case 'ArrowLeft':
         case 'a':

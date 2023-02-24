@@ -5,10 +5,18 @@
         padding: 0;
     }
 
-    p {
-        position: fixed;
+    #left {
+        bottom: 0;
+        left: 40;
+    }
+
+    #right {
         bottom: 0;
         right: 40;
+    }
+
+    p {
+        position: fixed;
         z-index: 10;
         color: white;
         font-size: 15px;
@@ -16,6 +24,7 @@
     }
 </style>
 
-<p><span>Score: </span> <span id = "scoreEl">0</span></p>
+<p id = "left"><span>Lives: </span> <span id = "livesEl">3</span></p>
+<p id = "right"><span>Score: </span> <span id = "scoreEl">0</span></p>
 <canvas></canvas>
 <script src = "index.js"></script>
