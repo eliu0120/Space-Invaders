@@ -121,6 +121,7 @@ class Invader extends ImageObj {
     update() {
         super.update();
 
+        // If invader makes it to bottom of screen
         if (this.position.y + this.height >= player.position.y) {
             setTimeout(() => {
                 game.over = true;
@@ -129,6 +130,8 @@ class Invader extends ImageObj {
             setTimeout(() => {
                 game.active = false;
             }, 2000);
+            lives = 0;
+            livesEl.innerHTML = lives;
         }
     }
 
@@ -143,6 +146,24 @@ class Invader extends ImageObj {
                 y: 3
             }
         }));
+    }
+}
+
+// Explosion class
+class Explosion extends ImageObj {
+    constructor(position) {
+        super({x: 0, y: 0}, 'Explosion.png', 1, position);
+        this.time = 350;
+    }
+
+    update() {
+        super.update();
+
+        this.time--;
+        if (this.time == 0) {
+            this.opacity = 0;
+        }
+        console.log(this.time);
     }
 }
 
@@ -232,6 +253,7 @@ const keys = {
         pressed: false
     }
 };
+const explosions = [];
 let frames = 0;
 let score = 0;
 let lives = 3;
@@ -254,6 +276,16 @@ function animate() {
     // Render player
     player.update();
 
+    // Explosion rendering
+    if (game.over && explosions.length == 0) {
+        explosions.push(new Explosion({
+            x: player.position.x,
+            y: player.position.y
+        }));
+    } else if (game.over) {
+        explosions[0].update();
+    }
+
     // Projectile movement and rendering
     if (projectiles.length > 0) {
         if (projectiles[0].position.y + projectiles[0].height <= 0) {
@@ -261,7 +293,7 @@ function animate() {
                 projectiles.splice(0, 1);
             }, 0);
         } else {
-            projectiles[0].update()
+            projectiles[0].update();
         }
     };
 
@@ -286,10 +318,8 @@ function animate() {
                 lives -= 1;
                 livesEl.innerHTML = lives;
                 if (lives == 0) {
-                    setTimeout(() => {
-                        player.opacity = 0;
-                        game.over = true;
-                    }, 0);
+                    player.opacity = 0;
+                    game.over = true;
     
                     setTimeout(() => {
                         game.active = false;
