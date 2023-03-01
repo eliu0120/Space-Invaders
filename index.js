@@ -6,6 +6,10 @@ const canvasDrawer = canvas.getContext('2d');
 canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
 
+const AlienHit = new Audio('AlienHit.wav');
+const laserShoot = new Audio('laserShoot.wav');
+const PlayerLoseLife = new Audio('PlayerLoseLife.wav');
+
 // Base object class
 class Obj {
     constructor(velocity) {
@@ -132,6 +136,7 @@ class Invader extends ImageObj {
             }, 2000);
             lives = 0;
             livesEl.innerHTML = lives;
+            PlayerLoseLife.play();
         }
     }
 
@@ -325,6 +330,7 @@ function animate() {
                         game.active = false;
                     }, 2000);
                 }
+                PlayerLoseLife.play();
             }, 0);
         }
     });
@@ -372,6 +378,8 @@ function animate() {
                                 score += 1000;
                             }
                         }
+
+                        AlienHit.play();
                         scoreEl.innerHTML = score;
                     }, 0);
                 }
@@ -430,6 +438,7 @@ addEventListener('keydown', ({key}) => {
                         y: player.position.y - 10
                     }
                 }));
+                laserShoot.play();
             }
             break;
     };
