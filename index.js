@@ -112,10 +112,16 @@ class Player extends ImageObj {
 }
 
 // Invader class
+let render_1 = true;
+let render_2 = false;
+let weird = false;
+let model1 = 'Alien_frame1.png';
+let model2 = 'Alien_frame2.png';
 class Invader extends ImageObj {
-    constructor(position) {
-        super({x: 0, y: 0}, 'Alien_frame1.png', 0.5, position);
+    constructor(position, model) {
+        super({x: 0, y: 0}, model, 0.5, position);
     }
+    
 
     update() {
         super.update();
@@ -137,7 +143,7 @@ class Invader extends ImageObj {
 
 // Invader Grid Class
 class Grid extends Obj {
-    constructor() {
+    constructor(model) {
         super({x: 1, y: 0});
         this.position = {x: 0, y: 0};
 
@@ -148,7 +154,7 @@ class Grid extends Obj {
         for (let i = 0; i < columns; i++) {
             for (let j = 0; j < rows; j++) {
                 let position = {x: i * 48, y: j * 32};
-                this.invaders.push(new Invader(position))
+                this.invaders.push(new Invader(position, model))
             }
         }
 
@@ -209,7 +215,7 @@ class InvaderProjectile extends Projectile {
 const player = new Player();
 const projectiles = [];
 const invaderProjectiles = [];
-let grid = [new Grid()];
+let grid = [new Grid(model1)];
 const keys = {
     a: {
         pressed: false
@@ -299,7 +305,39 @@ function animate() {
                     }, 0);
                 }
             }
+            
         });
+        if (frames % 100 == 0 && grid.length > 0)
+        {
+            if(render_1 && !render_2)
+            {
+                console.log("1");
+                render_1=false;
+                render_2=true;
+            }
+            else if (!render_1 && render_2){
+                console.log("2");
+            for(let i = 0 ; i < grid[0].invaders.length; i++){
+                pos = grid[0].invaders[i].position;
+                console.log (pos[0])
+                console.log (pos[1])
+                pos[0] -= 500;
+                pos[1] -= 500;
+                grid[0].invaders[i]= new Invader(pos,model2);
+            }
+            render_1=false;
+            render_2=false;
+        }
+            else if (!render_1&&!render_2)
+            {
+                for(let i = 0 ; i < grid[0].invaders.length; i++){
+                    pos = grid[0].invaders[i].position;
+                    grid[0].invaders[i]= new Invader(pos,model1);
+            }
+            render_1=true;
+            render_2=false;
+        }
+        }
     }
 
     // Respawn grid
