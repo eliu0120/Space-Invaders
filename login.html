@@ -1,0 +1,48 @@
+<html>
+<head>
+    <title> Login Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class = "toggle" onclick="login()">Login</button>
+                <button type="button" class = "toggle" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="inputs">
+                <input type="text" class="user" placeholder="Username" required>
+                <input type="text" class="user" placeholder="Password"required>
+                <button type="submit" class = "log">Login</button>
+            </form>
+            <form id="register" class="inputs">
+                <input type="text" class="user" placeholder="Username" required>
+                <input type="text" class="user" placeholder="Email ID" required>
+                <input type="text" class="user" placeholder="Password"required>
+                <button type="submit" class = "log">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var lo = document.getElementById("login");
+        var re = document.getElementById("register")
+        var btn = document.getElementById("btn")
+        function register()
+        {
+            lo.style.left="-450px";
+            re.style.left="0px";
+            btn.style.left="0px";
+        }
+        function login()
+        {
+            lo.style.left="0px";
+            re.style.left="450px";
+            btn.style.left="50px";
+        }
+    </script>
+</body>
+ 
+</html> 
