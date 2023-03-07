@@ -1,17 +1,29 @@
-*{
-    margin: 0;
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
     padding: 0;
 }
+html{
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    margin:0;
+    overflow-x: 0;
+    }
 .hero{
     height: 100%;
     width: 100%;
-    background-color: rgb(120, 125, 125);
+    background-image: linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),url(background.jpg);
+    background-position: center;
+    background-size: cover;
+    position: aboslute;
 }
 .form-box{
     height: 480px;
     width: 380px;
     position: relative;
-    margin: 6% auto;
+    margin: 0% auto;
     background: #ffffff;
     padding: 5px;
     overflow: hidden;
@@ -21,7 +33,7 @@
     margin: 35px auto;
     position: relative;
     background: linear-gradient(to left, white, gray);
-    box-shadow: 0 0 20px 9px #ff61241f;
+    box-shadow: 0 0 20px 9px #4fe2ff9b;
     border-radius: 30px;
 }
 .toggle{
