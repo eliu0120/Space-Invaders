@@ -12,16 +12,16 @@
                 <button type="button" class = "toggle" onclick="login()">Login</button>
                 <button type="button" class = "toggle" onclick="register()">Register</button>
             </div>
-            <form id="login" class="inputs">
-                <input type="text" class="user" placeholder="Username" required>
-                <input type="text" class="user" placeholder="Password"required>
+            <form id="login" class="inputs" method="post" name="form" action="index.html" onsubmit="return direct()">
+                <input type="text" class="user" name="login_username" placeholder="Username" required/>
+                <input type="password" class="user" name="login_password" placeholder="Password"required/>
                 <button type="submit" class = "log">Login</button>
             </form>
             <form id="register" class="inputs">
-                <input type="text" class="user" placeholder="Username" required>
-                <input type="text" class="user" placeholder="Email ID" required>
-                <input type="text" class="user" placeholder="Password"required>
-                <button type="submit" class = "log">Login</button>
+                <input type="text" class="user" placeholder="Username" required/>
+                <input type="text" class="user" placeholder="Email ID" required/>
+                <input type="password" class="user" placeholder="Password"required/>
+                <button type="submit" class = "log">Submit</button>
             </form>
         </div>
     </div>
@@ -41,6 +41,21 @@
             lo.style.left="0px";
             re.style.left="450px";
             btn.style.left="50px";
+        }
+
+        var login_user = document.forms['form'] ['login_username'];
+        var login_pass = document.forms['form'] ['login_password'];
+        function direct()
+        {
+            //conditions should be changed to see if it is in data base
+            if (login_user.value.length > 2 && login_pass.value.length > 2)
+            {
+                return true;
+            }
+            else{
+                alert("Invalid");
+                return false;
+            }
         }
     </script>
 </body>
