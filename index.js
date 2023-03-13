@@ -133,6 +133,8 @@ class Invader extends ImageObj {
             }, 0);
             setTimeout(() => {
                 game.active = false;
+                localStorage.setItem('score', score);
+                location.href = './test2.html'
             }, 2000);
             lives = 0;
             livesEl.innerHTML = lives;
@@ -328,6 +330,8 @@ function animate() {
     
                     setTimeout(() => {
                         game.active = false;
+                        localStorage.setItem('score', score);
+                        location.href = './test2.html'
                     }, 2000);
                 }
                 PlayerLoseLife.play();
