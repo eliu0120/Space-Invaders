@@ -1,48 +1,21 @@
-import { useEffect, useState } from "react";
-import '../App.css';
+import { useState } from "react";
+import './App.css';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import LineChart from '../components/LineChart.js';
-import ProfileInfo from '../components/ProfileInfo.js';
-import Navbar from "../components/Navbar";
+import LineChart from './LineChart.js';
+import ProfileInfo from './ProfileInfo.js';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { auth, upload } from "../components/firebase.js";
 import { Button, IconButton } from "@mui/material";
-import { onAuthStateChanged } from "firebase/auth";
 
 function Profile() {
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(false);
     const [photoURL, setPhotoURL] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
-	const [user, setUser] = useState(auth.currentUser);
 
-	useEffect(() => {
-	  onAuthStateChanged(auth, async (user) => {
-		if (user) {
-		  setUser(user);
-		}
-	  })
-	}, [user]);
-    
-    const handleChange = (e) => {
-        if (e.target.files[0]) {
-          setPhoto(e.target.files[0])
-        }
-    }
 
-    const handleClick = () => {
-        upload(photo, setLoading);
-    }
-
-    useEffect(() => {
-        if (user?.photoURL) {
-          setPhotoURL(user.photoURL);
-        }
-    }, [user, loading])
 
 	return (<div>
-				<Navbar/>
 				<Box
 					component="main"
 					sx={{
@@ -70,11 +43,11 @@ function Profile() {
 									{/* Profile Picture */}
 									<center><img src={photoURL} alt="Profile" width="180" height="180"/></center>
                                     <IconButton size="small" color="primary" aria-label="upload picture" component="label">
-                                        <input hidden accept="image/*" type="file" onChange={handleChange}/>
+                                        <input hidden accept="image/*" type="file" />
                                         Choose File
                                     </IconButton>
                                     <Button variant="contained" size="small" disabled={loading || !photo} 
-                                    onClick={handleClick}>Upload</Button>
+                                    >Upload</Button>
 								</Paper>
 							</Grid>
 
@@ -103,6 +76,7 @@ function Profile() {
 						</Grid>
 
 						</Container>
+                        
 				</Box>
 			</div>);
 }
