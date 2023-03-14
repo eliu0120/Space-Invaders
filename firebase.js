@@ -73,6 +73,16 @@ const addScore = (date, score) => {
     })
 }
 
+const addImage = (selectedImage) => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setDoc(doc(db, "users", user.uid), {
+                image: selectedImage
+            }, {merge: true});
+        }
+    });
+}
+
 export {
-    auth, db, logIn, register, passwordReset, logout, addScore,
+    auth, db, logIn, register, passwordReset, logout, addScore, addImage,
 };
