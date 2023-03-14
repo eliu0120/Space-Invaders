@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title> Death Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="box"></div>
+    <text class="text">Game Over</text>
+    <text class="text2"><span>Score: </span> <span id = "scoreEl">0</span></text>
+    <button onclick="activate()">press me</button>
+    <div id="death" class="hide">
+        <button class="clicker clicker2" onclick="window.location.href='game.html'">Play Again</button>
+        <button class="clicker clicker1" onclick="window.location.href='/test'">Return Home</button>
+        <button class="clicker clicker3" onclick="window.location.href='/'">Leaderboard</button>
+        <button class="clicker clicker4" onclick="window.location.href='/'">Profile</button>
+    </div>
+
+
+</body>
+<script>
+    function activate() {
+        var x = document.getElementById("death")
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        }
+        else {
+            x.style.display = "block";
+        }
+    }
+
+    document.getElementById('scoreEl').innerHTML=localStorage.score;
+</script>
+
+
+
+</html>

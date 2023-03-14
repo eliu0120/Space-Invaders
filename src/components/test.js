@@ -23,6 +23,7 @@ export default function Test() {
                 logout();
                 navigate("/")
             }}>Log Out</Button>
+            <a href = "game.html">Gameing</a>
         </div>
     )
 }
