@@ -40,7 +40,7 @@ export default function SignUp() {
 
     useEffect(() => {
         if (user)
-            navigate("/test");
+            navigate("/home");
     }, [user]);
 
     return (

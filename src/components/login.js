@@ -39,7 +39,7 @@ export default function SignIn() {
 
     useEffect(() => {
         if (user) 
-          navigate("/test");
+          navigate("/home");
     }, [user]);
 
     return (

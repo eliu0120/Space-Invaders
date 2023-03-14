@@ -106,19 +106,6 @@ html{
     background: linear-gradient(to left, white, gray);
     border-radius: 20px;
 }
-.clicker3{
-    height: 220 px;
-    width: 13%;
-    padding: 10px;
-    position: absolute;
-    top: 60%;
-    left: 51.8%;
-    transition: ease-out .3s;
-    margin: 35px auto;
-    box-shadow: inset 0 0 0 0 black;
-    background: linear-gradient(to left, white, gray);
-    border-radius: 20px;
-}
 
 .clicker2{
     height: 220 px;
@@ -140,7 +127,7 @@ html{
     padding: 10px;
     position: absolute;
     top: 60%;
-    left: 35%;
+    left: 43.4%;
     margin: 35px auto;
     box-shadow: inset 0 0 0 0 black;
     transition: ease-out .3s;

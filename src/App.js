@@ -20,7 +20,7 @@ function App() {
         <Route index element={<Navigate to="login" replace />} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/register' element={<SignUp />} />
-        <Route path='/test' element={<Test />} />
+        <Route path='/home' element={<Test />} />
         <Route path='/save' element={<Save />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
