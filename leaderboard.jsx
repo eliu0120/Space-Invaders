@@ -36,6 +36,11 @@ function Leaderboard() {
           </tr>
         </tbody>
       </table>
+	  <div className="back-button-container">
+        <button className="back-button">
+          Back
+        </button>
+      </div>
     </div>
   );
 }
