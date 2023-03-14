@@ -6,12 +6,9 @@ import LineChart from './LineChart.js';
 import ProfileInfo from './ProfileInfo.js';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Button, IconButton } from "@mui/material";
 
 function Profile() {
-    const [photo, setPhoto] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [photoURL, setPhotoURL] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png");
+    const photoURL = "https://images.squarespace-cdn.com/content/v1/570c331be321403a73df5d4e/1606041549628-TK1D7ZR4518J46ZN184Y/Space+Invader+logo.png?format=1000w";
 
 
 
@@ -42,12 +39,6 @@ function Profile() {
 								>
 									{/* Profile Picture */}
 									<center><img src={photoURL} alt="Profile" width="180" height="180"/></center>
-                                    <IconButton size="small" color="primary" aria-label="upload picture" component="label">
-                                        <input hidden accept="image/*" type="file" />
-                                        Choose File
-                                    </IconButton>
-                                    <Button variant="contained" size="small" disabled={loading || !photo} 
-                                    >Upload</Button>
 								</Paper>
 							</Grid>
 
