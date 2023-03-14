@@ -22,3 +22,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+
+
+const register = async (email, username, password) => {
+    try {
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        const user = res.user;
+        await setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            username,
+            authProvider: "local",
+            email,
+        });
+
+    } catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
+};
