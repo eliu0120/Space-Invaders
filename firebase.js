@@ -32,7 +32,7 @@ const logIn = async (email, password) => {
     }
 };
 
-const register = async (email, password) => {
+const register = async (email, username, password) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
