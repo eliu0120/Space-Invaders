@@ -23,8 +23,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
-
 const logIn = async (email, password) => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
@@ -34,7 +32,7 @@ const logIn = async (email, password) => {
     }
 };
 
-const register = async (email, username, password) => {
+const register = async (email, password) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -61,3 +59,20 @@ const passwordReset = async (email) => {
     }
 };
 
+const logout = () => {
+    signOut(auth);
+};
+
+const addScore = (date, score) => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            addDoc(collection(db, "users", user.uid, "dates", date, "scores"), {
+                score,
+            });
+        }
+    })
+}
+
+export {
+    auth, db, logIn, register, passwordReset, logout, addScore,
+};
