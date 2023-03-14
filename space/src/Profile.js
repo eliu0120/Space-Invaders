@@ -10,8 +10,6 @@ import Paper from '@mui/material/Paper';
 function Profile() {
     const photoURL = "https://images.squarespace-cdn.com/content/v1/570c331be321403a73df5d4e/1606041549628-TK1D7ZR4518J46ZN184Y/Space+Invader+logo.png?format=1000w";
 
-
-
 	return (<div>
 				<Box
 					component="main"
