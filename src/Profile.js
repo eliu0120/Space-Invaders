@@ -6,11 +6,13 @@ import LineChart from './LineChart.js';
 import ProfileInfo from './ProfileInfo.js';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import AppBar from './AppBar.js'
 
 function Profile() {
     const photoURL = "https://images.squarespace-cdn.com/content/v1/570c331be321403a73df5d4e/1606041549628-TK1D7ZR4518J46ZN184Y/Space+Invader+logo.png?format=1000w";
 
 	return (<div>
+				<AppBar/>
 				<Box
 					component="main"
 					sx={{
@@ -19,8 +21,8 @@ function Profile() {
 							? theme.palette.grey[80]
 							: theme.palette.grey[900],
 						flexGrow: 1,
-						height: '100vh',
-						overflow: 'auto',
+						height: '165vh',
+						overflow: 'hidden',
 						}}
 					>
 						
