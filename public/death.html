@@ -14,23 +14,13 @@
         <button class="clicker clicker2" onclick="window.location.href='game.html'">Play Again</button>
         <button class="clicker clicker1" onclick="window.location.href='/test'">Return Home</button>
         <button class="clicker clicker3" onclick="window.location.href='/'">Leaderboard</button>
-        <button class="clicker clicker4" onclick="window.location.href='/'">Profile</button>
+        <button class="clicker clicker4" onclick="window.location.href='/profile'">Profile</button>
     </div>
 
 
 </body>
 <script>
-    function activate() {
-        var x = document.getElementById("death")
-        if (x.style.display === "block") {
-            x.style.display = "none";
-        }
-        else {
-            x.style.display = "block";
-        }
-    }
-
-    document.getElementById('scoreEl').innerHTML=localStorage.score;
+    document.getElementById('scoreEl').innerHTML = localStorage.score;
 </script>
 
 

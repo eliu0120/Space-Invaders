@@ -134,7 +134,7 @@ class Invader extends ImageObj {
             setTimeout(() => {
                 game.active = false;
                 localStorage.setItem('score', score);
-                location.href = './death.html'
+                location.href = '/save'
             }, 2000);
             lives = 0;
             livesEl.innerHTML = lives;
@@ -170,7 +170,6 @@ class Explosion extends ImageObj {
         if (this.time == 0) {
             this.opacity = 0;
         }
-        console.log(this.time);
     }
 }
 
@@ -331,7 +330,7 @@ function animate() {
                     setTimeout(() => {
                         game.active = false;
                         localStorage.setItem('score', score);
-                        location.href = './death.html'
+                        location.href = '/save'
                     }, 2000);
                 }
                 PlayerLoseLife.play();
