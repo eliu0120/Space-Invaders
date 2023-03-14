@@ -72,6 +72,102 @@ html{
     border-radius: 30px; 
     border: transparent;
 }
+.hide{
+    display:block;
+}
+.text{
+    position: relative;
+    font-size: 850%;
+    position: absolute; 
+    top:20%;
+    left: 32%;
+    transform:(10%,10%);
+    color: white;
+}
+.text2{
+    font-size: 300%;
+    position: absolute; 
+    top:38%;
+    left: 44%;
+    transform:(10%,10%);
+    color: white;   
+}
+
+.clicker1{
+    height: 220 px;
+    width: 13%;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 51.8%;
+    transition: ease-out .3s;
+    margin: 35px auto;
+    box-shadow: inset 0 0 0 0 black;
+    background: linear-gradient(to left, white, gray);
+    border-radius: 20px;
+}
+.clicker3{
+    height: 220 px;
+    width: 13%;
+    padding: 10px;
+    position: absolute;
+    top: 60%;
+    left: 43.5%;
+    margin: 35px auto;
+    transition: ease-out .3s;
+    box-shadow: inset 0 0 0 0 black;
+    background: linear-gradient(to left, white, gray);
+    border-radius: 20px;
+}
+.clicker2{
+    height: 220 px;
+    width: 13%;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    margin: 35px auto;
+    box-shadow: inset 0 0 0 0 black;
+    transition: ease-out .3s;
+    background: linear-gradient(to left, white, gray);
+    border-radius: 20px;
+}
+.clicker{
+    cursor:pointer;
+    justify-content: space-evenly;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+}
+.clicker2:hover{
+    box-shadow: inset 300px 0 0 0 grey;
+    cursor: pointer;
+    color: white;
+}
+.clicker1:hover{
+    box-shadow: inset 300px 0 0 0 grey;
+    cursor: pointer;
+    color: white;
+}
+.clicker3:hover{
+    box-shadow: inset 300px 0 0 0 grey;
+    cursor: pointer;
+    color: white;
+}
+
+.box{
+    height: 100%;
+    width: 100%;
+    position: absolute; 
+    transform:(10%,10%);
+    margin: auto;
+    background: #000000;
+    padding: 5 px;
+    overflow: hidden;
+    opacity: .9;
+}
 
 #register{
  left:450px;
