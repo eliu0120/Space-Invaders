@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 
 import {
     getAuth, signInWithEmailAndPassword, onAuthStateChanged,
-    createUserWithEmailAndPassword, sendPasswordResetEmail, signOut,
+    createUserWithEmailAndPassword, signOut,
 } from 'firebase/auth';
 import {
     getFirestore, collection, addDoc, setDoc, doc,
@@ -41,18 +41,9 @@ const register = async (email, username, password) => {
             username,
             authProvider: "local",
             email,
+            image: "../public/logo.png"
         });
 
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
-};
-
-const passwordReset = async (email) => {
-    try {
-        await sendPasswordResetEmail(auth, email);
-        alert("Link to reset password sent");
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -73,6 +64,16 @@ const addScore = (date, score) => {
     })
 }
 
+const addImage = (selectedImage) => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setDoc(doc(db, "users", user.uid), {
+                image: selectedImage
+            }, {merge: true});
+        }
+    });
+}
+
 export {
-    auth, db, logIn, register, passwordReset, logout, addScore,
+    auth, db, logIn, register, logout, addScore, addImage
 };
