@@ -84,11 +84,11 @@ function ProfileInfo() {
 
 	return (
 		<Typography variant="p" component="p">
-			<center><font size="20"><b>{data.username}</b></font></center>
+				<font size="20"><b>{data.username}</b></font>
 			<br /><br />
-			<center>{data.email}</center>
+				{data.email}
 			<br /><br />
-			<center><em>Who's record will you beat?</em></center>
+				<em>Who's record will you beat?</em>
 		</Typography>
 	);
 }

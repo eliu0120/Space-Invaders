@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import { Line } from "react-chartjs-2";
 import { auth, db } from "./firebase.js";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
 let dates = [];
 let maxScores = [];
 
-async function getDates() {
+async function getDates(userid) {
 	dates.length = 0;
-	const q2 = query(collection(db, "users", "1j6jDxI4Vradc3zHLpY9M85r7W43", "dates"));
+	//const q2 = query(collection(db, "users", "1j6jDxI4Vradc3zHLpY9M85r7W43", "dates"));
+	const q2 = query(collection(db, "users", userid, "dates"));
 	const snapshot = await getDocs(q2);
-
-	console.log("Snapshot = " + snapshot);
 
 	snapshot.forEach((rec) => {
 		console.log("Rec.id = " + rec.id);
@@ -22,12 +21,13 @@ async function getDates() {
 	dates.sort();
 }
 
-async function getScores() {
+async function getScores(userid) {
 	console.log(dates);
 	let scores = [];
 	for(let i = 0; i < dates.length; i++)
 	{
-		const q2 = query(collection(db, "users", "1j6jDxI4Vradc3zHLpY9M85r7W43", "dates", dates[i], "scores"));
+		//const q2 = query(collection(db, "users", "1j6jDxI4Vradc3zHLpY9M85r7W43", "dates", dates[i], "scores"));
+		const q2 = query(collection(db, "users", userid, "dates", dates[i], "scores"));
 		const snapshot = await getDocs(q2);
 		snapshot.forEach((rec) => {
 			scores.push(parseInt(rec.data().score));
@@ -36,19 +36,11 @@ async function getScores() {
 
 		maxScores.push(Math.max(...scores));
 		
-		console.log("Date = " + dates[i] + " : " + "Max val = " + Math.max(...scores));
+		//console.log("Date = " + dates[i] + " : " + "Max val = " + Math.max(...scores));
 	}
 }
 
 
-/*
-
-function dateToRead(date)
-{
-	return date.replace("-","");
-}
-
-*/
 
 const LineChart = (props) => {
 	const emptyData = {
@@ -97,8 +89,13 @@ const LineChart = (props) => {
 				});
 				*/
 
-				await getDates();
-				await getScores();
+				const userid = user.uid;
+				//const userid = "1j6jDxI4Vradc3zHLpY9M85r7W43";
+				dates = [];
+				maxScores = [];
+				await getDates(userid);
+				await getScores(userid);
+				console.log(maxScores);
 				const newData = {
 					labels: dates,
 					datasets: [
