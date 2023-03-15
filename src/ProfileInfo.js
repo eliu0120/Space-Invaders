@@ -5,11 +5,12 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { async } from '@firebase/util';
 
+/*
 let dates = [];
 let scores = [];
 
 async function testdb() {
-	/*
+	
 	let info = {};
 	const usersDef = collection(db, "users");
 	const q1 = query(usersDef, where("uid", "==", "1j6jDxI4Vradc3zHLpY9M85r7W43"));
@@ -19,7 +20,7 @@ async function testdb() {
 					info = doc.data();
 					console.log("Username = " + info.username);
 				});
-	*/
+	
 	dates.length = 0;
 	const q2 = query(collection(db, "users", "1j6jDxI4Vradc3zHLpY9M85r7W43", "dates"));
 	const snapshot = await getDocs(q2);
@@ -31,7 +32,10 @@ async function testdb() {
 		dates.push(rec.id);
 	});
 	dates.sort();
+	
 }
+
+
 
 async function getScores() {
 	console.log(dates);
@@ -47,6 +51,7 @@ async function getScores() {
 		console.log("Date = " + dates[i] + " : " + "Max val = " + Math.max(...scores));
 	}
 }
+*/
 
 
 
@@ -63,9 +68,6 @@ function ProfileInfo() {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, async (user) => {
-			console.log("UseEffect in ProfileInfo.js");
-			await testdb();
-			await getScores();
 			if (user) {
 				let info = {};
 				const usersRef = collection(db, "users");
