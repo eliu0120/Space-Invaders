@@ -2,11 +2,14 @@ import { initializeApp } from "firebase/app";
 
 import {
     getAuth, signInWithEmailAndPassword, onAuthStateChanged,
-    createUserWithEmailAndPassword, signOut,
+    createUserWithEmailAndPassword, signOut, updateProfile
 } from 'firebase/auth';
 import {
     getFirestore, collection, addDoc, setDoc, doc,
 } from "firebase/firestore";
+import {
+    getStorage, ref, uploadBytes, getDownloadURL,
+} from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -74,6 +77,21 @@ const addImage = (selectedImage) => {
     });
 }
 
+const upload = (file, setLoading) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const fileRef = ref(storage, user.uid + '.png');
+        setLoading(true); 
+        await uploadBytes(fileRef, file);
+        const photoURL = await getDownloadURL(fileRef); 
+        await updateProfile(user, {photoURL});
+        console.log(photoURL);
+        setLoading(false);
+      }
+    })
+}
+
+
 export {
-    auth, db, logIn, register, logout, addScore, addImage,
+    auth, db, logIn, register, logout, addScore, addImage, upload,
 };
