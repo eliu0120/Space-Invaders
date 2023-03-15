@@ -6,6 +6,7 @@ import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded';
 import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import {Stack ,Button, Typography} from "@mui/material";
+import './fonts.css'
 
 export default function Test() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function Test() {
       height: '100vh'
     }}>
       <div className="App" sx={{":hover":{boxShadow:"5px 5px 20px #ccc",}}}>
-        <Typography fontSize={100} color="white" style= {{minHeight:"40vh"}} fontFamily="Ultra" margin="normal" textAlign="center">Space Invaders</Typography>
+        <Typography fontSize={100} color="white" style= {{minHeight:"40vh"}} fontFamily="Stick No Bills" margin="normal" textAlign="center">Space Invaders</Typography>
         <Stack justifyContent="center" alignItems="center" >
           <Button style={{maxWidth:"150px"}} textAlign='center' endIcon = {<RocketLaunchRoundedIcon/>} sx= {{ borderRadius:3}} margin="normal" 
           color= "success"variant="contained" onClick = { () => {
