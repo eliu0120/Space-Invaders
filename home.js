@@ -19,16 +19,16 @@ function App() {
     <div className="App" sx={{":hover":{boxShadow:"10px 10px 20px #ccc",}}}>
       <Typography fontSize={100} color="white" style= {{minHeight:"40vh"}} margin="normal" textAlign="center">Space Invaders</Typography>
       <Stack>
-      <Button endIcon = {<RocketLaunchRoundedIcon/>} sx= {{ borderRadius:3}} margin="normal" color= "success"varient="contained" >Play </Button>
+      <Button endIcon = {<RocketLaunchRoundedIcon/>} sx= {{ borderRadius:3}} margin="normal" color= "success"variant="contained" >Play </Button>
       </Stack>
       <Stack>
-      <Button endIcon={<AccountBoxRoundedIcon/>} sx= {{marginTop:3, borderRadius:3}} margin="normal" color="secondary" varient="contained" >Profile</Button>
+      <Button endIcon={<AccountBoxRoundedIcon/>} sx= {{marginTop:3, borderRadius:3}} margin="normal" color="secondary" variant="contained" >Profile</Button>
       </Stack>
       {/*<Stack>
       <Button endIcon={<LeaderboardRoundedIcon />} sx= {{marginTop:3, borderRadius:3}} margin="normal" varient="contained" >Leaderboard</Button> 
       { </Stack> */}
       <Stack>
-      <Button endIcon={<LogoutRoundedIcon/>} sx= {{ marginTop:3, borderRadius:3, minHeight: "5vh"}} width={"200%"} color="error" varient="contained" >Logout</Button>
+      <Button endIcon={<LogoutRoundedIcon/>} sx= {{ marginTop:3, borderRadius:3, minHeight: "5vh"}} width={"200%"} color="error" >Logout</Button>
       </Stack>
     </div>
     </div>
