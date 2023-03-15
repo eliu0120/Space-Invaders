@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title> Death Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="box"></div>
+    <text class="text">Game Over</text>
+    <text class="text2"><span>Score: </span> <span id = "scoreEl">0</span></text>
+    <button onclick="activate()">press me</button>
+    <div id="death" class="hide">
+        <button class="clicker clicker2" onclick="window.location.href='game.html'">Play Again</button>
+        <button class="clicker clicker1" onclick="window.location.href='/home'">Return Home</button>
+        <button class="clicker clicker4" onclick="window.location.href='/profile'">Profile</button>
+    </div>
+
+
+</body>
+<script>
+    document.getElementById('scoreEl').innerHTML = localStorage.score;
+</script>
+
+
+
+</html>

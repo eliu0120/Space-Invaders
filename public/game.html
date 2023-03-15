@@ -1,0 +1,30 @@
+<style>
+    body {
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+
+    #left {
+        bottom: 0;
+        left: 40;
+    }
+
+    #right {
+        bottom: 0;
+        right: 40;
+    }
+
+    p {
+        position: fixed;
+        z-index: 10;
+        color: white;
+        font-size: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+
+<p id = "left"><span>Armor: </span> <span id = "livesEl">3</span></p>
+<p id = "right"><span>Score: </span> <span id = "scoreEl">0</span></p>
+<canvas></canvas>
+<script src = "game.js"></script>
