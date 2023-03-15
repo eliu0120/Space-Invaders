@@ -2,42 +2,46 @@ import React, { useState, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import { Line } from "react-chartjs-2";
 import { auth, db } from "../firebase.js";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
-function monthNum(month) {
-	switch (month) {
-		case 'Jan':
-			return '01';
-		case 'Feb':
-			return '02';
-		case 'Mar':
-			return '03';
-		case 'Apr':
-			return '04';
-		case 'May':
-			return '05';
-		case 'Jun':
-			return '06';
-		case 'Jul':
-			return '07';
-		case 'Aug':
-			return '08';
-		case 'Sep':
-			return '09';
-		case 'Oct':
-			return '10';
-		case 'Nov':
-			return '11';
-		default:
-			return '12';
+let dates = [];
+let maxScores = [];
+
+async function getDates(userid) {
+	dates.length = 0;
+	//const q2 = query(collection(db, "users", "1j6jDxI4Vradc3zHLpY9M85r7W43", "dates"));
+	const q2 = query(collection(db, "users", userid, "dates"));
+	const snapshot = await getDocs(q2);
+
+	snapshot.forEach((rec) => {
+		console.log("Rec.id = " + rec.id);
+		dates.push(rec.id);
+	});
+	dates.sort();
+
+	console.log(dates);
+}
+
+async function getScores(userid) {
+	console.log(dates);
+	let scores = [];
+	for(let i = 0; i < dates.length; i++)
+	{
+		//const q2 = query(collection(db, "users", "1j6jDxI4Vradc3zHLpY9M85r7W43", "dates", dates[i], "scores"));
+		const q2 = query(collection(db, "users", userid, "dates", dates[i], "scores"));
+		const snapshot = await getDocs(q2);
+		snapshot.forEach((rec) => {
+			scores.push(parseInt(rec.data().score));
+			console.log("Scores.id = " + rec.data().score);
+		});
+
+		maxScores.push(Math.max(...scores));
+		console.log(maxScores);
+		
+		//console.log("Date = " + dates[i] + " : " + "Max val = " + Math.max(...scores));
 	}
 }
-
-function dateToNum(date) {
-	return Number(date.substring(11, 15) + monthNum(date.substring(4, 7)) + date.substring(8, 10));
-}
-
 
 
 
@@ -46,7 +50,7 @@ const LineChart = (props) => {
 		labels: [],
 		datasets: [
 			{
-				label: "Points",
+				label: "Scores",
 				backgroundColor: "rgb(255, 99, 132)",
 				borderColor: "rgb(255, 99, 132)",
 				data: [],
@@ -56,16 +60,19 @@ const LineChart = (props) => {
 
 	const [data, setData] = useState(emptyData);
 
+	let flag = false;
+
 	useEffect(() => {
 		onAuthStateChanged(auth, async (user) => {
-			if (user) {
+			if (user && !flag) {
+				/*
 				const q = query(collection(db, "users", user.uid, "dates"));
 				const snapshot = await getDocs(q);
 
-
+				
 				let fb_dates_num = [];
 				snapshot.forEach((rec) => {
-					fb_dates_num.push(dateToNum(rec.id));
+					fb_dates_num.push(dateToRead(rec.id));
 				});
 
 				fb_dates_num.sort();
@@ -81,19 +88,29 @@ const LineChart = (props) => {
 				}
 
 				snapshot.forEach((rec) => {
-					let index = fb_dates_num.indexOf(dateToNum(rec.id));
+					let index = fb_dates_num.indexOf(dateToRead(rec.id));
 					fb_dates[index] = rec.id;
 					fb_scores[index] = rec.data().score;
 				});
+				*/
 
+				flag = true;
+				const userid = user.uid;
+				//const userid = "1j6jDxI4Vradc3zHLpY9M85r7W43";
+				dates = [];
+				maxScores = [];
+				await getDates(userid);
+				await getScores(userid);
+				console.log(dates);
+				console.log(maxScores);
 				const newData = {
-					labels: fb_dates,
+					labels: dates,
 					datasets: [
 						{
 							label: "Scores",
 							backgroundColor: "rgb(255, 99, 132)",
 							borderColor: "rgb(255, 99, 132)",
-							data: fb_scores,
+							data: maxScores,
 						},
 					],
 				};
