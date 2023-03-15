@@ -25,6 +25,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 const logIn = async (email, password) => {
     try {
@@ -58,13 +59,18 @@ const logout = () => {
 };
 
 const addScore = (date, score) => {
+    let flag = false;
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            addDoc(collection(db, "users", user.uid, "dates", date, "scores"), {
-                score,
-            });
-        }
-    })
+      if (user && !flag) {
+        flag = true;
+        setDoc(doc(db, "users", user.uid, "dates", date), {
+          score,
+        })
+        addDoc(collection(db, "users", user.uid, "dates", date, "scores"), {
+            score,
+        });
+      }
+    });
 }
 
 const addImage = (selectedImage) => {
@@ -91,7 +97,6 @@ const upload = (file, setLoading) => {
     })
 }
 
-
 export {
-    auth, db, logIn, register, logout, addScore, addImage, upload,
+    auth, db, logIn, register, logout, addScore, addImage, upload
 };
