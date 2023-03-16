@@ -28,5 +28,5 @@ Technologies Used:
 
 ***Required features***
 1. Upload data from client to server: Saves user login information when they register and uploads to backend.
-2. Display dynamic data: Real-time updates of the score displayed to the user as they play the game. 
-3. Search through server-side data: Searches through backend data to find user’s login information and ensure it is correct, allowing them to keep track of their saved progress
+2. Display dynamic data: Displays custom profile picture (stored in backend)  when opening the profile tab which user has the option to change.
+3. Search through server-side data: Searches through backend data to find user’s login information and ensure it is correct, allowing them to keep a save of their profile information
