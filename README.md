@@ -6,6 +6,10 @@
 3. ```npm install```
 4. ```npm start```
 
+## Play Instructions
+1. Use WASD to move and SPACE to fire a laser.
+2. Player has 3 Armor points and can continue playing until they run out of armor (which 
+
 ## About:
 Web application to mimic and modernize the renowned, retro arcade game Space-Invaders.
 Technologies Used:
@@ -18,15 +22,18 @@ Technologies Used:
 
 ***Unique features***
 1. Realtime score updates and Armor level updates while playing.
-2. Customizable profile page: displays all user information.
-3. Uploads player’s score to backend after every game.
-4. Alien death affects, both visual and auditory.
-5. Ship death effects, both visual and auditory.
-6. Laser projectiles with sound effects.
+2. Login and Registration for the user
+3. Customizable profile page: displays all user information.
+4. Player/Alien Movement in addition to laser firing
+5. Alien death affects, both visual and auditory.
+6. Ship death effects, both visual and auditory.
+7. Laser projectiles with sound effects.
 
 ***NOTE: we created all animations and sound effects***
 
 ***Required features***
-1. Upload data from client to server: Saves user login information when they register and uploads to backend.
-2. Display dynamic data: Displays custom profile picture (stored in backend)  when opening the profile tab which user has the option to change.
-3. Search through server-side data: Searches through backend data to find user’s login information and ensure it is correct, allowing them to keep a save of their profile information
+1. Upload data from client to server: Uploads player’s score to backend after every game.
+2. Display dynamic data: Displays custom profile picture, username, and email (all stored in backend) when opening the profile tab. User has the option to change the profile picture.
+3. Search through server-side data: On the profile page, we provide data on the history of the user’s scores and create a line chart to represent them. The chart is created by sorting through the dates and showing the days when the new highest scores were achieved.
+
+
