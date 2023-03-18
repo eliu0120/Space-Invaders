@@ -8,7 +8,7 @@
 
 ## Play Instructions
 1. Use WASD to move and SPACE to fire a laser.
-2. Player has 3 Armor points and can continue playing until they run out of armor (which 
+2. Player has 3 Armor points and can continue playing until they run out of armor
 
 ## About:
 Web application to mimic and modernize the renowned, retro arcade game Space-Invaders.
