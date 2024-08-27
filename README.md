@@ -1,4 +1,4 @@
-# Space Invaders Web Application | CS35L Winter 2023 Final Project
+# Space Invaders Web Application
 
 ## To run:
 1. ```git clone https://github.com/eliu0120/Space-Invaders.git```
